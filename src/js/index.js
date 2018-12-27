@@ -1,6 +1,5 @@
 import React from 'react'
 import { render } from 'react-dom'
-
-const App = () => <div>hoge</div>
+import App from './components/App'
 
 render(<App />, document.getElementById('main'))
