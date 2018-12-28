@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { TodosProvider } from '../contexts/todos'
 import Form from './Form'
 import List from './List'
 
@@ -17,8 +18,10 @@ const Contents = styled.div`
 `
 
 export default () => (
-  <Contents>
-    <Form />
-    <List />
-  </Contents>
+  <TodosProvider>
+    <Contents>
+      <Form />
+      <List />
+    </Contents>
+  </TodosProvider>
 )

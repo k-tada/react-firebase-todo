@@ -5,9 +5,11 @@ import {
   ListItemText,
   ListItemSecondaryAction,
   Button,
+  Checkbox,
   Divider,
 } from '@material-ui/core'
 import styled from 'styled-components'
+import { TodosContext } from '../contexts/todos'
 
 const Contents = styled.div`
   & {
@@ -26,40 +28,48 @@ const EmptyMessage = styled.div`
   }
 `
 
+const Text = styled(ListItemText)`
+  && {
+    opacity: ${({ completed }) => (completed ? '0.9' : '1.0')};
+    text-decoration: ${({ completed }) =>
+      completed ? 'line-through' : 'none'};
+  }
+`
+
 export default () => {
-  const todos = [
-    {
-      text: 'テスト1',
-    },
-    {
-      text: 'テスト2',
-    },
-    {
-      text: 'テスト3',
-    },
-  ]
+  const { todos, update, remove } = useContext(TodosContext)
   return (
     <Contents>
       {todos.length === 0 ? (
         <EmptyMessage>No todos...</EmptyMessage>
       ) : (
         <List>
-          {todos.map(({ text: t }) => (
-            <Fragment key={`${t}--fragment`}>
-              <ListItem key={`${t}--list`}>
-                <ListItemText primary={t} />
+          {todos.map(todo => (
+            <Fragment key={`${todo.docId}--fragment`}>
+              <ListItem key={`${todo.docId}--list`}>
+                <Checkbox
+                  checked={todo.isComplete}
+                  onClick={() => {
+                    update({
+                      docId: todo.docId,
+                      text: todo.text,
+                      isComplete: !todo.isComplete,
+                    })
+                  }}
+                />
+                <Text primary={todo.text} completed={todo.isComplete} />
                 <ListItemSecondaryAction>
                   <Button
-                    color="secondary"
-                    onClick={() =>
-                      dispatch({ type: actions.COMPLETE_TODO, payload: t })
-                    }
+                    color="default"
+                    onClick={() => {
+                      remove({ docId: todo.docId })
+                    }}
                   >
-                    Complete
+                    Delete
                   </Button>
                 </ListItemSecondaryAction>
               </ListItem>
-              <Divider key={`${t}--divider`} />
+              <Divider key={`${todo.docId}--divider`} />
             </Fragment>
           ))}
         </List>
