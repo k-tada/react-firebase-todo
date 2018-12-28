@@ -1,0 +1,16 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /todos/{todo} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+      function isAuthor() {
+        return request.auth.uid == resource.data.uid;
+      }
+
+      allow read;
+      allow create: if isSignedIn()
+      allow update, delete: if isAuthor();
+    }
+  }
+}

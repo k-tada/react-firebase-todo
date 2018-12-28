@@ -1,0 +1,14 @@
+{
+  "indexes": [
+    {
+      "collectionId": "todos",
+      "fields": [
+        {
+          "fieldPath": "createdAt",
+          "mode": "DESCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
