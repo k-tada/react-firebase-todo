@@ -1,24 +1,22 @@
 import React from 'react'
+import Loading from 'react-loading'
 import styled from 'styled-components'
-import Form from './Form'
-import List from './List'
 
 const Contents = styled.div`
   & {
-    width: 80%;
-    height: 90%;
-    background-color: white;
-    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    background-color: #eee;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
     padding: 10px;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 `
 
 export default () => (
   <Contents>
-    <Form />
-    <List />
+    <Loading type="spinningBubbles" color="#888" height={120} width={120} />
   </Contents>
 )

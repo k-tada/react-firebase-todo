@@ -1,7 +1,10 @@
 import React from 'react'
+import { AuthProvider } from '../contexts/auth'
 import styled from 'styled-components'
-import Form from './Form'
+import Router from './Router'
+import Loading from './Loading'
 import Todos from './Todos'
+import Login from './Login'
 
 const Main = styled.div`
   & {
@@ -18,24 +21,14 @@ const Main = styled.div`
   }
 `
 
-const Contents = styled.div`
-  & {
-    width: 80%;
-    height: 90%;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-  }
-`
-
 export default () => (
-  <Main>
-    <Contents>
-      <Form />
-      <Todos />
-    </Contents>
-  </Main>
+  <AuthProvider>
+    <Main>
+      <Router
+        renderLoading={() => <Loading />}
+        renderTodos={() => <Todos />}
+        renderLogin={() => <Login />}
+      />
+    </Main>
+  </AuthProvider>
 )
