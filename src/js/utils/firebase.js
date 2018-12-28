@@ -10,5 +10,7 @@ firebase.initializeApp({
 })
 
 const auth = firebase.auth()
+const db = firebase.firestore()
+db.settings({ timestampsInSnapshots: true })
 
-export { auth }
+export { auth, db }
