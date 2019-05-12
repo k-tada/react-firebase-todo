@@ -7,33 +7,32 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
   const [currentUser, setCurrentUser] = useState(null)
 
-  const signup = async (email, password) => {
+  const signup = useCallback(async (email, password) => {
     try {
+      setLoading(true)
       await auth.createUserWithEmailAndPassword(email, password)
-      auth.onAuthStateChanged(user => setCurrentUser(user))
     } catch (e) {
-      console.log(e.code, e.message)
+      console.error(e.code, e.message)
     }
-  }
+  }, [])
 
-  const signin = async (email, password) => {
+  const signin = useCallback(async (email, password) => {
     try {
-      console.log('signin')
+      setLoading(true)
       await auth.signInWithEmailAndPassword(email, password)
-      auth.onAuthStateChanged(user => setCurrentUser(user))
     } catch (e) {
-      console.log(e.code, e.message)
+      console.error(e.code, e.message)
     }
-  }
+  }, [])
 
-  const signout = async () => {
+  const signout = useCallback(async () => {
     try {
+      setLoading(true)
       await auth.signOut()
-      auth.onAuthStateChanged(user => setCurrentUser(user))
     } catch (e) {
-      console.log(e.code, e.message)
+      console.error(e.code, e.message)
     }
-  }
+  }, [])
 
   useEffect(() => {
     auth.onAuthStateChanged(user => {
